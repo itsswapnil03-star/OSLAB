@@ -82,3 +82,8 @@ case $choice in
 *) echo "Invalid choice. Enter a number from 1 to 6." ;;
 esac
 done
+
+# Commands to Run (Ubuntu)
+# chmod +x PR_1_Addressbook.sh
+# ./PR_1_Addressbook.sh
+# Choose option 1 (create) first, before insert/view. If chmod is skipped, use: bash PR_1_Addressbook.sh

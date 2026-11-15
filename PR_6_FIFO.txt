@@ -69,3 +69,10 @@ int main()
         printf("Invalid choice\n");
     return 0;
 }
+
+/*
+Commands to Run (Ubuntu)
+gcc PR_6_FIFO.c -o pr6
+./pr6
+Open two terminals in the same folder. Terminal 1: run ./pr6 and enter 2 (counter). Terminal 2: run ./pr6 and enter 1 (sender), type lines, then press Enter on an empty line. To clean up: rm -f fifo1 fifo2 output.txt
+*/

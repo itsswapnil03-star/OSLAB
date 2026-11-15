@@ -46,3 +46,10 @@ int main()
     sem_destroy(&room);
     return 0;
 }
+
+/*
+Commands to Run (Ubuntu)
+gcc PR_4_DiningPhilosopher.c -o pr4 -pthread
+./pr4
+The -pthread flag is required.
+*/

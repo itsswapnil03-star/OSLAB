@@ -112,3 +112,9 @@ int main()
     } while (ch != 4);
     return 0;
 }
+
+/*
+Commands to Run (Ubuntu)
+gcc PR_8_Complete.c -o pr8
+./pr8
+*/

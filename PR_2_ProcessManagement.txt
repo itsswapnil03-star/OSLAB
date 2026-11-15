@@ -109,3 +109,10 @@ int main()
         printf("Invalid choice\n");
     return 0;
 }
+
+/*
+Commands to Run (Ubuntu)
+gcc PR_2_ProcessManagement.c -o pr2
+./pr2
+For zombie state (option 2), run "ps -l" in another terminal within 30 seconds and look for state Z.
+*/

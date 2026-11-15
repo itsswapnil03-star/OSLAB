@@ -69,3 +69,9 @@ int main()
         printf("\nSystem is in UNSAFE state (deadlock possible)\n");
     return 0;
 }
+
+/*
+Commands to Run (Ubuntu)
+gcc PR_5_Bankersalgo.c -o pr5
+./pr5
+*/

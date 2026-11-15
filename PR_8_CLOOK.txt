@@ -38,3 +38,9 @@ int main()
     printf("\nTotal head movement = %d\n", total);
     return 0;
 }
+
+/*
+Commands to Run (Ubuntu)
+gcc PR_8_CLOOK.c -o clook
+./clook
+*/

@@ -59,3 +59,10 @@ int main()
     pthread_mutex_destroy(&mutex);
     return 0;
 }
+
+/*
+Commands to Run (Ubuntu)
+gcc PR_3_Thread_Synchronization.c -o pr3 -pthread
+./pr3
+The -pthread flag is required.
+*/

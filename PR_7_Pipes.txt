@@ -47,3 +47,10 @@ int main()
     }
     return 0;
 }
+
+/*
+Commands to Run (Ubuntu)
+gcc PR_7_Pipes.c -o pr7
+./pr7
+When asked for a file path, enter an existing file, e.g. PR_7_Pipes.c
+*/
