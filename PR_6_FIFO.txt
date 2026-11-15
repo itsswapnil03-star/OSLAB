@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#define FIFO1 "fifo1"
+#define FIFO2 "fifo2"
+void process1()
+{
+    int fd1, fd2;
+    char buf[1000] = "", line[200], result[1000];
+    printf("Enter sentences (empty line to stop):\n");
+    getchar();
+    while (fgets(line, 200, stdin) != NULL && line[0] != '\n')
+        strcat(buf, line);
+    fd1 = open(FIFO1, O_WRONLY);
+    write(fd1, buf, strlen(buf) + 1);
+    close(fd1);
+    fd2 = open(FIFO2, O_RDONLY);
+    read(fd2, result, sizeof(result));
+    close(fd2);
+    printf("\nOutput received from process 2:\n%s", result);
+}
+void process2()
+{
+    int fd1, fd2, i;
+    int chars = 0, words = 0, lines = 0;
+    char buf[1000], result[1000] = "", temp[100];
+    FILE *fp;
+    printf("Waiting for process 1...\n");
+    fd1 = open(FIFO1, O_RDONLY);
+    read(fd1, buf, sizeof(buf));
+    close(fd1);
+    for (i = 0; buf[i] != '\0'; i++)
+    {
+        if (buf[i] == '\n')
+            lines++;
+        else
+            chars++;
+        if (buf[i] != ' ' && buf[i] != '\n' && (i == 0 || buf[i - 1] == ' ' || buf[i - 1] == '\n'))
+            words++;
+    }
+    fp = fopen("output.txt", "w");
+    fprintf(fp, "Characters: %d\nWords: %d\nLines: %d\n", chars, words, lines);
+    fclose(fp);
+    fp = fopen("output.txt", "r");
+    while (fgets(temp, 100, fp) != NULL)
+        strcat(result, temp);
+    fclose(fp);
+    fd2 = open(FIFO2, O_WRONLY);
+    write(fd2, result, strlen(result) + 1);
+    close(fd2);
+    printf("Result written to output.txt and sent to process 1\n");
+}
+int main()
+{
+    int ch;
+    mkfifo(FIFO1, 0666);
+    mkfifo(FIFO2, 0666);
+    printf("1. Process 1 (sender)\n");
+    printf("2. Process 2 (counter)\n");
+    printf("Enter your choice: ");
+    scanf("%d", &ch);
+    if (ch == 1)
+        process1();
+    else if (ch == 2)
+        process2();
+    else
+        printf("Invalid choice\n");
+    return 0;
+}

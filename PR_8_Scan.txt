@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+    int a[50], n, head, size, i, j, t, pos, total = 0;
+    printf("Enter number of requests: ");
+    scanf("%d", &n);
+    printf("Enter request queue: ");
+    for (i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+    printf("Enter initial head position: ");
+    scanf("%d", &head);
+    printf("Enter total number of tracks: ");
+    scanf("%d", &size);
+    for (i = 0; i < n - 1; i++)
+        for (j = 0; j < n - i - 1; j++)
+            if (a[j] > a[j + 1])
+            {
+                t = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = t;
+            }
+    for (i = 0; i < n; i++)
+        if (a[i] >= head)
+            break;
+    pos = head;
+    printf("\nSCAN order: %d", head);
+    for (j = i; j < n; j++)
+    {
+        printf(" -> %d", a[j]);
+        total = total + abs(a[j] - pos);
+        pos = a[j];
+    }
+    printf(" -> %d", size - 1);
+    total = total + (size - 1 - pos);
+    pos = size - 1;
+    for (j = i - 1; j >= 0; j--)
+    {
+        printf(" -> %d", a[j]);
+        total = total + abs(pos - a[j]);
+        pos = a[j];
+    }
+    printf("\nTotal head movement = %d\n", total);
+    return 0;
+}

@@ -1,0 +1,84 @@
+#!/bin/bash
+create()
+{
+touch "addressbook.txt"
+}
+insert()
+{
+echo "Enter name"
+read name
+echo "Enter phone_no"
+read phone_no
+echo "Enter address"
+read address
+echo "$name | $phone_no | $address" >>addressbook.txt
+}
+view()
+{
+if [ -f addressbook.txt ]
+then
+cat addressbook.txt
+else
+echo "File not found. Please create it first (option 1)."
+fi
+}
+modify()
+{
+echo "Enter name that you want to modify"
+read name
+if ! grep -q "^$name |" addressbook.txt
+then
+echo "Name not found."
+return
+fi
+grep -v "^$name |" addressbook.txt > addressbook1.txt
+cp addressbook1.txt addressbook.txt
+rm addressbook1.txt
+echo "Enter name"
+read name
+echo "Enter phone_no"
+read phone_no
+echo "Enter address"
+read address
+echo "$name | $phone_no | $address" >>addressbook.txt
+}
+delete()
+{
+echo "Enter name that you want to delete"
+read name
+if ! grep -q "^$name |" addressbook.txt
+then
+echo "Name not found."
+return
+fi
+grep -v "^$name |" addressbook.txt > addressbook1.txt
+cp addressbook1.txt addressbook.txt
+rm addressbook1.txt
+}
+choice=0
+while [ "$choice" != "6" ]
+do
+echo "1. create"
+echo "2. insert"
+echo "3. view"
+echo "4. modify"
+echo "5. delete"
+echo "6. exit"
+echo "Enter Your Choice"
+read choice || break
+case $choice in
+1) echo "create file"
+        create ;;
+2) echo "insert"
+        insert ;;
+3) echo "view"
+        view ;;
+4) echo "modify"
+        modify ;;
+5) echo "delete"
+        delete ;;
+6) echo "exit"
+        exit ;;
+*) echo "Invalid choice. Enter a number from 1 to 6." ;;
+esac
+done

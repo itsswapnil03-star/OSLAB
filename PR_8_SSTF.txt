@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+    int req[50], visited[50] = {0};
+    int n, head, i, j, pos, min, index, total = 0;
+    printf("Enter number of requests: ");
+    scanf("%d", &n);
+    printf("Enter request queue: ");
+    for (i = 0; i < n; i++)
+        scanf("%d", &req[i]);
+    printf("Enter initial head position: ");
+    scanf("%d", &head);
+    pos = head;
+    printf("\nSSTF order: %d", head);
+    for (i = 0; i < n; i++)
+    {
+        min = 9999;
+        for (j = 0; j < n; j++)
+            if (visited[j] == 0 && abs(req[j] - pos) < min)
+            {
+                min = abs(req[j] - pos);
+                index = j;
+            }
+        visited[index] = 1;
+        total = total + min;
+        pos = req[index];
+        printf(" -> %d", pos);
+    }
+    printf("\nTotal head movement = %d\n", total);
+    return 0;
+}

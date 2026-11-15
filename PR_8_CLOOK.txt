@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+    int a[50], n, head, i, j, t, pos, total = 0;
+    printf("Enter number of requests: ");
+    scanf("%d", &n);
+    printf("Enter request queue: ");
+    for (i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+    printf("Enter initial head position: ");
+    scanf("%d", &head);
+    for (i = 0; i < n - 1; i++)
+        for (j = 0; j < n - i - 1; j++)
+            if (a[j] > a[j + 1])
+            {
+                t = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = t;
+            }
+    for (i = 0; i < n; i++)
+        if (a[i] >= head)
+            break;
+    pos = head;
+    printf("\nC-LOOK order: %d", head);
+    for (j = i; j < n; j++)
+    {
+        printf(" -> %d", a[j]);
+        total = total + abs(a[j] - pos);
+        pos = a[j];
+    }
+    for (j = 0; j < i; j++)
+    {
+        printf(" -> %d", a[j]);
+        total = total + abs(pos - a[j]);
+        pos = a[j];
+    }
+    printf("\nTotal head movement = %d\n", total);
+    return 0;
+}
